@@ -2,6 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const dbConnection = require("./config/dbConnection");
+const globalError = require("./middlewares/globalError");
+const ApiError = require("./utils/ApiError");
+const userRoute = require("./routes/userRoute");
 
 dotenv.config({
   path: "config.env",
@@ -21,9 +24,15 @@ if (process.env.NODE_ENV === "development") {
   console.log(process.env.NODE_ENV);
 }
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+// Mount Routes
+app.use("/api/v1/users", userRoute);
+
+app.all("*", (req, res, next) => {
+  next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));
 });
+
+// Global Error Handling Middleware For Express Handle Rejection Inside Express
+app.use(globalError);
 
 const PORT = process.env.PORT || 8000;
 

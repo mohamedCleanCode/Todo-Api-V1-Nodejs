@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    password2: {
+      type: String,
+      required: [true, "Password2 is required"],
+    },
     profileImage: String,
     phone: String,
     role: {
@@ -29,6 +33,15 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    todos: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true }
 );
