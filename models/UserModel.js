@@ -22,10 +22,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    password2: {
-      type: String,
-      required: [true, "Password2 is required"],
-    },
     profileImage: String,
     phone: String,
     role: {
