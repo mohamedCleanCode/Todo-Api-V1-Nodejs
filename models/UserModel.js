@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "Todo name is required"],
-      unique: [true, "Todo name must be required"],
       trim: true,
     },
     slug: {
@@ -41,6 +41,13 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  // Hashing password
+  this.password = await bcrypt.hash(this.password, 12);
+});
 
 const UserModel = mongoose.model("User", userSchema);
 
