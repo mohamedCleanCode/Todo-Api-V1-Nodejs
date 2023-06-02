@@ -1,12 +1,5 @@
 const express = require("express");
 
-// const {
-//   getBrandValidator,
-//   createBrandValidator,
-//   updateBrandValidator,
-//   deleteBrandValidator,
-// } = require("../utils/validators/brandValidator");
-
 const {
   getUsers,
   getUser,
@@ -15,11 +8,16 @@ const {
   deleteUser,
   updateUserPassword,
 } = require("../service/userService");
-const { createUserValidator } = require("../utils/validator/userValidator");
+const {
+  createUserValidator,
+  updateUserPasswordValidator,
+} = require("../utils/validator/userValidator");
 
 const router = express.Router();
 
-router.route("/updateUserPassword/:id").put(updateUserPassword);
+router
+  .route("/updateUserPassword/:id")
+  .put(updateUserPasswordValidator, updateUserPassword);
 router.route("/").get(getUsers).post(createUserValidator, createUser);
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
