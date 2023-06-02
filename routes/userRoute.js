@@ -13,11 +13,13 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  updateUserPassword,
 } = require("../service/userService");
 const { createUserValidator } = require("../utils/validator/userValidator");
 
 const router = express.Router();
 
+router.route("/updateUserPassword/:id").put(updateUserPassword);
 router.route("/").get(getUsers).post(createUserValidator, createUser);
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
