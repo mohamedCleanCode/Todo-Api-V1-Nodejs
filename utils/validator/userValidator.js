@@ -38,6 +38,35 @@ exports.createUserValidator = [
   check("ProfileImage").optional(),
   validatorLayer,
 ];
+exports.updateUserValidator = [
+  check("id")
+    .notEmpty()
+    .withMessage("id must be exist")
+    .isMongoId()
+    .withMessage("invalid id foramt"),
+  check("name")
+    .notEmpty()
+    .withMessage("Name is required")
+    .isLength({ min: "3", max: "15" })
+    .withMessage("Name must be between 3 and 15 characters"),
+  check("email")
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Email is not valid")
+    .custom(async (val) => {
+      const email = await UserModel.findOne({ email: val }).then(
+        (user) => user
+      );
+      if (email) {
+        throw new Error("Email is alryady exist");
+      }
+      return true;
+    }),
+  check("phone").optional().isMobilePhone(["ar-Eg", "ar-Sa"]),
+  check("ProfileImage").optional(),
+  validatorLayer,
+];
 
 exports.updateUserPasswordValidator = [
   check("id")
