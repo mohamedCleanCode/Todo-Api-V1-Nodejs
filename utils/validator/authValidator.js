@@ -1,5 +1,4 @@
 const { check } = require("express-validator");
-const bcrypt = require("bcryptjs");
 const validatorLayer = require("../../middlewares/validatorLayer");
 const UserModel = require("../../models/UserModel");
 
@@ -34,5 +33,18 @@ exports.signupValidator = [
     }
     return true;
   }),
+  validatorLayer,
+];
+exports.loginValidator = [
+  check("email")
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Email is not valid"),
+  check("password")
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 6 })
+    .withMessage("Password must be > 6"),
   validatorLayer,
 ];

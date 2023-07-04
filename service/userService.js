@@ -1,13 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const UserModel = require("../models/UserModel");
-const {
-  createOne,
-  getOne,
-  getAll,
-  updateOne,
-  deleteOne,
-} = require("./handlersFactory");
+const { createOne, getOne, getAll, deleteOne } = require("./handlersFactory");
 const ApiError = require("../utils/ApiError");
 
 // @desc   Create user
