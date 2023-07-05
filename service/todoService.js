@@ -15,6 +15,24 @@ const ApiError = require("../utils/ApiError");
 // @access Private (user)
 exports.createTodo = createOne(TodoModel);
 
+// @desc   Set usercategoryId to body of req
+// @route  POST /api/v1/user/:userId/todos
+exports.setUserIdToBody = (req, res, next) => {
+  if (!req.body.user) req.body.user = req.params.userID;
+  next();
+};
+
+// @desc   Set filterObj to body of req
+// @route  GET /api/v1/user/:userId/todos
+exports.setFilterObj = (req, res, next) => {
+  let filterObject = {};
+  if (req.params.userId) {
+    filterObject = { user: req.params.userId };
+  }
+  req.body.filterObject = filterObject;
+  next();
+};
+
 // @desc   Get specific todo
 // @route  GET /api/v1/todos
 // @access Private (user)

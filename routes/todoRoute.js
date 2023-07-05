@@ -6,6 +6,8 @@ const {
   getTodos,
   updateTodo,
   deleteTodo,
+  setUserIdToBody,
+  setFilterObj,
 } = require("../service/todoService");
 const {
   createUserValidator,
@@ -13,9 +15,9 @@ const {
   updateUserPasswordValidator,
 } = require("../utils/validator/userValidator");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.route("/").post(createTodo).get(getTodos);
+router.route("/").post(setUserIdToBody, createTodo).get(setFilterObj, getTodos);
 router.route("/:id").get(getTodo).put(updateTodo).delete(deleteTodo);
 
 module.exports = router;

@@ -15,6 +15,7 @@ const todoSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: [true, "Todo must be belong to user"],
     },
   },
   { timestamps: true }

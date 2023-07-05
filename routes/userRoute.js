@@ -13,8 +13,11 @@ const {
   updateUserValidator,
   updateUserPasswordValidator,
 } = require("../utils/validator/userValidator");
+const todoRoute = require("./todoRoute");
 
 const router = express.Router();
+
+router.use("/:userId/todos", todoRoute);
 
 router.route("/").get(getUsers).post(createUserValidator, createUser);
 router
