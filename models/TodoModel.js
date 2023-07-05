@@ -8,6 +8,14 @@ const todoSchema = new mongoose.Schema(
       unique: [true, "Todo name must be required"],
       trim: true,
     },
+    description: {
+      type: String,
+      trim: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );

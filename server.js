@@ -6,6 +6,7 @@ const globalError = require("./middlewares/globalError");
 const ApiError = require("./utils/ApiError");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
+const todoRoute = require("./routes/todoRoute");
 
 dotenv.config({
   path: "config.env",
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV === "development") {
 // Mount Routes
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/todos", todoRoute);
 
 app.all("*", (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));

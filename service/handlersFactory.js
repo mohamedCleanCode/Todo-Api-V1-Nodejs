@@ -62,10 +62,10 @@ exports.getAll = (Model, modelName) =>
 
     // Execute Query
     const { mongooseQuery, paginationResult } = apiFeatures;
-    const subCategories = await mongooseQuery;
+    const document = await mongooseQuery;
     res.status(200).json({
-      data: subCategories,
       paginationResult,
-      result: subCategories.length,
+      result: document.length,
+      data: document,
     });
   });
