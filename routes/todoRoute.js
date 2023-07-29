@@ -14,10 +14,14 @@ const {
   updateUserValidator,
   updateUserPasswordValidator,
 } = require("../utils/validator/userValidator");
+const { protect } = require("../service/authService");
 
 const router = express.Router({ mergeParams: true });
 
-router.route("/").post(setUserIdToBody, createTodo).get(setFilterObj, getTodos);
+router
+  .route("/")
+  .post(protect, setUserIdToBody, createTodo)
+  .get(setFilterObj, getTodos);
 router.route("/:id").get(getTodo).put(updateTodo).delete(deleteTodo);
 
 module.exports = router;

@@ -41,3 +41,27 @@ exports.login = asyncHandler(async (req, res, next) => {
   // send response to client side
   res.status(200).json({ data: user, token });
 });
+
+exports.protect = asyncHandler(async (req, res, next) => {
+  // 1) check if token exist
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+  if (!token) {
+    return next(
+      new ApiError(
+        "You are not loggedin, please login to access this route",
+        401
+      )
+    );
+  }
+  // 2) verify token (check if token changed or expired)
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  console.log(decoded);
+  // 3) check if user exist
+  // 4) check if user change password after token created
+});
