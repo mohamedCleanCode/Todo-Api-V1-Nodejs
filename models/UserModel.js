@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    passwordChangeAt: Date,
     profileImage: String,
     phone: String,
     role: {
@@ -33,11 +34,6 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    todos: [
-      {
-        type: String,
-      },
-    ],
   },
   { timestamps: true }
 );

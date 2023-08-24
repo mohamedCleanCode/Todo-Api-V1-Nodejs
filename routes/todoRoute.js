@@ -9,11 +9,7 @@ const {
   setUserIdToBody,
   setFilterObj,
 } = require("../service/todoService");
-const {
-  createUserValidator,
-  updateUserValidator,
-  updateUserPasswordValidator,
-} = require("../utils/validator/userValidator");
+
 const { protect } = require("../service/authService");
 
 const router = express.Router({ mergeParams: true });
